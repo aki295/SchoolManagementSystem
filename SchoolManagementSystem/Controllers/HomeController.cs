@@ -3,28 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SchoolManagementSystem.Models;
 
 namespace SchoolManagementSystem.Controllers
 {
 	public class HomeController : Controller
 	{
+		SchoolContext db = new SchoolContext();
 		public ActionResult Index()
 		{
+			IEnumerable<Student> students = db.Students;
+			ViewBag.Students = students;
 			return View();
 		}
-
-		public ActionResult About()
+		protected override void Dispose(bool disposing)
 		{
-			ViewBag.Message = "Your application description page.";
-
-			return View();
-		}
-
-		public ActionResult Contact()
-		{
-			ViewBag.Message = "Your contact page.";
-
-			return View();
+			db.Dispose();
+			base.Dispose(disposing);
 		}
 	}
 }
