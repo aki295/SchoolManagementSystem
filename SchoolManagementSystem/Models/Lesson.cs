@@ -13,6 +13,6 @@ namespace SchoolManagementSystem.Models
 		public string Homework { get; set; }
 		public string StudyRoom { get; set; }
 		public DateTime StartTime { get; set; }
-		public DateTime EnfTime { get; set; }
+		public DateTime EndTime { get; set; }
 	}
 }

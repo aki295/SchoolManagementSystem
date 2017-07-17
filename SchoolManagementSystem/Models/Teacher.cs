@@ -6,7 +6,7 @@ using System.Web;
 
 namespace SchoolManagementSystem.Models
 {
-	public class Teacher
+	public class Teacher : Person
 	{
 		[Key]
 		public int TeacherId { get; set; }

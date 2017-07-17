@@ -13,5 +13,20 @@ namespace SchoolManagementSystem.Models
 		public DbSet<Teacher> Teachers { get; set; }
 		public DbSet<Lesson> Lessons { get; set; }
 		public DbSet<Course> Courses { get; set; }
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<Student>()
+			.Map(m =>
+			{
+				m.MapInheritedProperties();
+				m.ToTable("Students");
+			});
+			modelBuilder.Entity<Teacher>()
+			.Map(m =>
+			{
+				m.MapInheritedProperties();
+				m.ToTable("Teachers");
+			});
+		}
 	}
 }
