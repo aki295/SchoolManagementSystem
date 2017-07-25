@@ -12,6 +12,8 @@ namespace SchoolManagementSystem.Models
 		[Key]
 		[HiddenInput (DisplayValue = false)]
 		public int StudentId { get; set; }
+		[Display(Name = "E-mail")]
+		public string Email { get; set; }
 		public ICollection<Course> Courses { get; set; }
 		public Student()
 		{
