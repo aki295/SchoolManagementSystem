@@ -12,7 +12,7 @@ namespace SchoolManagementSystem.Models
 	{
 		[Key]
 		[HiddenInput(DisplayValue = false)]
-		//[ForeignKey("ApplicationUser")]
+		[ForeignKey("ApplicationUser")]
 		public int TeacherId { get; set; }
 		public string Position { get; set; }
 		public string AddInformation { get; set; }
