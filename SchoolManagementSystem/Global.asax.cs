@@ -10,11 +10,11 @@ using System.Data.Entity;
 
 namespace SchoolManagementSystem
 {
-	public class MvcApplication : System.Web.HttpApplication
+	public class MvcApplication : HttpApplication
 	{
 		protected void Application_Start()
 		{
-			Database.SetInitializer(new SchoolDbInitializer());
+			//Database.SetInitializer(new SchoolDbInitializer());
 
 			AreaRegistration.RegisterAllAreas();
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
