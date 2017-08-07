@@ -85,7 +85,7 @@ namespace SchoolManagementSystem.Controllers
 					AuthenticationManager.SignOut();
 					AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claim);
 					if (String.IsNullOrEmpty(returnUrl))
-						return RedirectToAction("Index", "Home");
+						return RedirectToAction("Login", "Account");
 					return Redirect(returnUrl);
 				}
 			}
