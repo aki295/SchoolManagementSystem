@@ -11,6 +11,7 @@ namespace SchoolManagementSystem.Models
 		public string Name { get; set; }
 		public string Surname { get; set;}
 		public string Patronymic { get; set; }
+		[Display(Name = "Date of birth")]
 		public DateTime DateOfBirth { get; set; }
 		
 		[Display(Name = "Phone number")]

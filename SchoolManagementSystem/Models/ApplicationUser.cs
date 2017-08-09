@@ -10,6 +10,6 @@ namespace SchoolManagementSystem.Models
 	{
 		public Teacher Profile { get; set; }
 		public ApplicationUser()
-		{ }
+		{	}
 	}
 }

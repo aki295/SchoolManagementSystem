@@ -19,6 +19,101 @@
         <link href="~/Content/registration.css" rel="stylesheet">
     </head>
     <body>
-
+        <div class="form-group">
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-login", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h2 class="form-register-heading">Registration</h2>
+                <!--Email-->
+                @Html.LabelFor(model => Model.Email)
+                @Html.EditorFor(model => Model.Email, new { htmlAttributes =
+                    new { type = "email",
+                        @class = "form-control",
+                        placeholder = "Email address",
+                        autofocus = "autofocus",
+                        required = "required" } })
+                <!--Password-->
+                @Html.LabelFor(model => Model.Password)
+                @Html.EditorFor(model => Model.Password, new { htmlAttributes =
+                    new { type = "password",
+                        @class = "form-control",
+                        placeholder = "Password",
+                        required = "required" } })
+                <!--Confirm password-->
+                @Html.LabelFor(model => Model.PasswordConfirm)
+                @Html.EditorFor(model => Model.PasswordConfirm, new { htmlAttributes =
+                    new { type = "password",
+                        @class = "form-control",
+                        placeholder = "Repeat your password",
+                        required = "required" } })
+                <!--Phone number-->
+                @Html.LabelFor(model => Model.PhoneNumber)
+                @Html.EditorFor(model => Model.PhoneNumber, new { htmlAttributes =
+                    new { type = "tel",
+                        @class = "form-control",
+                        placeholder = "Phone number",
+                        required = "required" } })
+                <!--Surname-->
+                @Html.LabelFor(model => Model.Surname)
+                @Html.EditorFor(model => Model.Surname, new { htmlAttributes =
+                    new { type = "text",
+                        @class = "form-control",
+                        placeholder = "Surname",
+                        required = "required" } })
+                <!--Name-->
+                @Html.LabelFor(model => Model.Name)
+                @Html.EditorFor(model => Model.Name, new { htmlAttributes =
+                    new { type = "text",
+                        @class = "form-control",
+                        placeholder = "Name",
+                        required = "required" } })
+                <!--Patronymic-->
+                @Html.LabelFor(model => Model.Patronymic)
+                @Html.EditorFor(model => Model.Patronymic, new { htmlAttributes =
+                    new { type = "text",
+                        @class = "form-control",
+                        placeholder = "Patronymic",
+                        required = "required" } })
+                <!--Position-->
+                @Html.LabelFor(model => Model.Position)
+                @Html.EditorFor(model => Model.Position, new { htmlAttributes =
+                    new { type = "text",
+                        @class = "form-control",
+                        placeholder = "Position",
+                        required = "required" } })
+                <!--Salary per hour-->
+                @Html.LabelFor(model => Model.SalaryPerHour)
+                @Html.EditorFor(model => Model.SalaryPerHour, new { htmlAttributes =
+                    new { type = "number",
+                        min = "0",
+                        max = "100000",
+                        @class = "form-control",
+                        placeholder = "Salary",
+                        required = "required" } })
+                <!--Salary-->
+                @Html.LabelFor(model => Model.Salary)
+                @Html.EditorFor(model => Model.Salary, new { htmlAttributes =
+                    new { type = "number",
+                        min ="0",
+                        max ="2000",
+                        @class = "form-control",
+                        placeholder = "Salary",
+                        required = "required" } })
+                <!--Date of birth-->
+                @Html.LabelFor(model => Model.DateOfBirth)
+                @Html.EditorFor(model => Model.DateOfBirth, new { htmlAttributes =
+                    new { type = "datetime",
+                        @class = "form-control",
+                        placeholder = "Date of birth",
+                        required = "required" } })
+                <!--Information-->
+                @Html.LabelFor(model => Model.AddInformation)
+                @Html.EditorFor(model => Model.AddInformation, new { htmlAttributes =
+                    new { type = "text",
+                        @class = "form-control",
+                        placeholder = "Information" } })
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+            }
+        </div>
     </body>
 </html>

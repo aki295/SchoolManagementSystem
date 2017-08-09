@@ -26,6 +26,10 @@ namespace SchoolManagementSystem.Controllers
         {
             return View();
         }
+		public ActionResult TEST()
+		{
+			return View();
+		}
 		[HttpPost]
 		public async Task<ActionResult> Register(RegisterModel model)
 		{
@@ -39,12 +43,13 @@ namespace SchoolManagementSystem.Controllers
 										PhoneNumber = model.PhoneNumber,
 										DateOfBirth = model.DateOfBirth,
 										AddInformation = model.AddInformation,
-										SalaryPerHour = model.SalaryPerHour
+										SalaryPerHour = model.SalaryPerHour,
+										Salary = model.Salary
 				}	};
 				IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 				if (result.Succeeded)
 				{
-					return RedirectToAction("Login, Account");
+					return RedirectToAction("Login", "Account");
 				}
 				else
 				{
@@ -85,7 +90,7 @@ namespace SchoolManagementSystem.Controllers
 					AuthenticationManager.SignOut();
 					AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claim);
 					if (String.IsNullOrEmpty(returnUrl))
-						return RedirectToAction("Login", "Account");
+						return RedirectToAction("Register", "Account");
 					return Redirect(returnUrl);
 				}
 			}

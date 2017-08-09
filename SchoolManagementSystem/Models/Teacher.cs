@@ -13,11 +13,15 @@ namespace SchoolManagementSystem.Models
 		[Key]
 		[HiddenInput(DisplayValue = false)]
 		[ForeignKey("ApplicationUser")]
-		public int TeacherId { get; set; }
+		public string Id { get; set; }
 		public string Position { get; set; }
+		[Display(Name = "Information")]
 		public string AddInformation { get; set; }
+		[Display(Name = "Hourly wage")]
 		public int SalaryPerHour { get; set; }
+		public int Salary { get; set; }
 		public Course Course { get; set; }
 		public int? CourseId { get; set; }
+		public ApplicationUser ApplicationUser { get; set; }
 	}
 }
