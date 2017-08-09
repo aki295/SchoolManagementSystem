@@ -10,7 +10,6 @@ namespace SchoolManagementSystem.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "SchoolManagementSystem.Models.SchoolContext";
         }
 
         protected override void Seed(SchoolManagementSystem.Models.SchoolContext context)
