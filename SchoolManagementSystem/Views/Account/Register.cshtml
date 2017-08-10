@@ -1,20 +1,20 @@
 ﻿@model SchoolManagementSystem.Models.RegisterModel
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
-<html lang="en"
+<html lang="en">
     <head>
-        <meta charset="utf-8">
+       <!-- <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="author" content=""> -->
         <title>Registration</title>
 
         <!-- Bootstrap core CSS -->
-        <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+        <!--<link href="~/Content/bootstrap.min.css" rel="stylesheet">-->
         <!-- Custom styles for this template -->
         <link href="~/Content/registration.css" rel="stylesheet">
     </head>
@@ -86,7 +86,7 @@
                 @Html.EditorFor(model => Model.SalaryPerHour, new { htmlAttributes =
                     new { type = "number",
                         min = "0",
-                        max = "100000",
+                        max = "2000",
                         @class = "form-control",
                         placeholder = "Salary",
                         required = "required" } })
@@ -95,7 +95,7 @@
                 @Html.EditorFor(model => Model.Salary, new { htmlAttributes =
                     new { type = "number",
                         min ="0",
-                        max ="2000",
+                        max ="100000",
                         @class = "form-control",
                         placeholder = "Salary",
                         required = "required" } })
