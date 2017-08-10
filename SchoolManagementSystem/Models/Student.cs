@@ -14,6 +14,8 @@ namespace SchoolManagementSystem.Models
 		public int StudentId { get; set; }
 		[Display(Name = "E-mail")]
 		public string Email { get; set; }
+		public bool Sex { get; set; }
+		public bool Activity { get; set; }
 		public ICollection<Course> Courses { get; set; }
 		public Student()
 		{
