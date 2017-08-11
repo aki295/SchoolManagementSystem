@@ -1,10 +1,87 @@
 ﻿@model IEnumerable<SchoolManagementSystem.Models.Student>
 
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>List of student</title>
 
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/DataTables/css/jquery.dataTables.css" rel="stylesheet">
+</head>
+<body>
+    <table id="students_table" class="table table-striped table-bordered" cellspacing="0">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Surname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Patronymic)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateOfBirth)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Surname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Patronymic)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateOfBirth)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        var table = $(document).ready(function () {
+            $('#students_table').DataTable({
+                "scrollY": '50vh',
+                scrollCollapse: true,
+                paging: false
+                
+            });
+            $('#students_table tbody').on('click', 'tr', function () {
+                $(this).toggleClass('selected');
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+<!--
 <h2>Index</h2>
 
 <p>
@@ -38,3 +115,4 @@
 }
 
 </table>
+-->

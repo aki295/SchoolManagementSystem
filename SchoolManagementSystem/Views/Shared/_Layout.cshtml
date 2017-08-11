@@ -21,8 +21,8 @@
 <body class="q">
     <div class="header">
         <ul class="nav nav-pills pull-right">
-            <li>@Html.ActionLink("Registration", "Register", "Account", new { htmlAttributes = new { @class = "active" } }) </li>
-            <li><a href="#">About</a></li>
+            <li>@Html.ActionLink("Registration", "Register", "Account") </li>
+            <li>@Html.ActionLink("Students", "Index", "Students")</li>
             <li><a href="#">Contact</a></li>
         </ul>
         @Html.ActionLink("School Managment System", "Register", "Account", new { area = "" }, new { @class = "navbar-brand" })
@@ -36,6 +36,7 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
