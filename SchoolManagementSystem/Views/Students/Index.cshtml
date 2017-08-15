@@ -1,20 +1,15 @@
 ﻿@model IEnumerable<SchoolManagementSystem.Models.Student>
 
 @{
+    ViewBag.Title = "List of student";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>List of student</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="~/Content/DataTables/css/jquery.dataTables.css" rel="stylesheet">
-</head>
-<body>
     <table id="students_table" class="table table-striped table-bordered" cellspacing="0">
         <thead>
             <tr>
+                <th style="display:none">
+                    @Html.DisplayNameFor(model => model.StudentId)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
@@ -36,6 +31,9 @@
             @foreach (var item in Model)
             {
                 <tr>
+                    <td style="display:none">
+                        @Html.DisplayFor(modelItem => item.StudentId)
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
@@ -55,25 +53,46 @@
             }
         </tbody>
     </table>
+    <button id="btnDelete" value="Delete student">Delete student</button> 
 
+    @Ajax.ActionLink("Delete student", "Delete", new { id = "" },
+    new AjaxOptions { UpdateTargetId = "students_table" },
+    new { @id = "DeleteButton", @style = "visibility:hidden;", @class = "btnDelete" })
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript">
-        var table = $(document).ready(function () {
-            $('#students_table').DataTable({
+        $(document).ready(function () {
+            var table = $('#students_table').DataTable({
                 "scrollY": '50vh',
                 scrollCollapse: true,
                 paging: false
                 
             });
             $('#students_table tbody').on('click', 'tr', function () {
-                $(this).toggleClass('selected');
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    table.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected')
+                }
             });
+            $('#btnDelete').click(function () {
+                var studentId = table.row('.selected')[0];
+                //alert(studentId);
+                if (studentId) {
+                    var href = "/Students/delete?id=" + encodeURIComponent(studentId);
+                    //alert(href);
+                    $("#DeleteButton").attr("href", href).click();
+                }
+                table.row('.selected').remove().draw(false);
+                
+            });
+
         });
     </script>
-</body>
-</html>
 
 
 
