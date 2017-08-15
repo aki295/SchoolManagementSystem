@@ -54,11 +54,7 @@
         </tbody>
     </table>
     <button id="btnDelete" value="Delete student">Delete student</button> 
-
-    @Ajax.ActionLink("Delete student", "Delete", new { id = "" },
-    new AjaxOptions { UpdateTargetId = "students_table" },
-    new { @id = "DeleteButton", @style = "visibility:hidden;", @class = "btnDelete" })
-    
+    @Html.ActionLink("Delete student", "Delete", "Students", new { id = "" }, new { @id = "DeleteButton" })
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
@@ -68,7 +64,7 @@
                 "scrollY": '50vh',
                 scrollCollapse: true,
                 paging: false
-                
+
             });
             $('#students_table tbody').on('click', 'tr', function () {
                 if ($(this).hasClass('selected')) {
@@ -79,17 +75,25 @@
                     $(this).addClass('selected')
                 }
             });
-            $('#btnDelete').click(function () {
+            $('#DeleteButton').click(function () {
+                var studentId = table.row('.selected')[0]; //this give me correct id
+                //alert(studentId); 
+                if (studentId) {
+                    $.get("?id=" + studentId, function () {
+                        table.row('.selected').remove().draw(false);
+                    });
+                }
+            });
+            /*$('#btnDelete').click(function () {
                 var studentId = table.row('.selected')[0];
                 //alert(studentId);
                 if (studentId) {
-                    var href = "/Students/delete?id=" + encodeURIComponent(studentId);
-                    //alert(href);
-                    $("#DeleteButton").attr("href", href).click();
+                    var href = "?id=" + studentId;
+                    $("#DeleteButton").attr(href).click();
+                    //$('#DeleteButton').attr("?id=" + encodeURIComponent(studentId)).click();
                 }
                 table.row('.selected').remove().draw(false);
-                
-            });
+            });*/
 
         });
     </script>
