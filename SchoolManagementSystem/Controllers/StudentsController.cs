@@ -21,6 +21,11 @@ namespace SchoolManagementSystem.Controllers
             return View(await db.Students.ToListAsync());
         }
 
+		public async Task<ActionResult> GetStudents()
+		{
+			var students = await db.Students.OrderBy(name => name.Name).ToListAsync();
+			return Json(new { data = students }, JsonRequestBehavior.AllowGet);
+		}
         // GET: Students/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -47,8 +52,9 @@ namespace SchoolManagementSystem.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "StudentId,Name,Surname")] Student student)
+        public async Task<ActionResult> Create([Bind(Include = "StudentId,Name,Surname,Patronymic,DateOfBirth,Email,Activity,Sex,PhoneNumber")] Student student)
         {
+			
             if (ModelState.IsValid)
             {
                 db.Students.Add(student);
@@ -110,10 +116,11 @@ namespace SchoolManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
+			
             Student student = await db.Students.FindAsync(id);
             db.Students.Remove(student);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+			return new JsonResult { Data = new { status = true } };
         }
 
         protected override void Dispose(bool disposing)

@@ -4,138 +4,100 @@
     ViewBag.Title = "List of student";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-    <table id="students_table" class="table table-striped table-bordered" cellspacing="0">
-        <thead>
-            <tr>
-                <th style="display:none">
-                    @Html.DisplayNameFor(model => model.StudentId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Surname)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Patronymic)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PhoneNumber)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateOfBirth)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+
+
+
+<div style="width:90%; margin:0 auto" class="tablecontainer">
+        <table id="students_table" class="table table-striped table-bordered" cellspacing="0">
+            <thead>
                 <tr>
-                    <td style="display:none">
-                        @Html.DisplayFor(modelItem => item.StudentId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Surname)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Patronymic)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PhoneNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateOfBirth)
-                    </td>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Patronymic</th>
+                    <th>Phone</th>
+                    <th>Action</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-    <button id="btnDelete" value="Delete student">Delete student</button> 
-    @Html.ActionLink("Delete student", "Delete", "Students", new { id = "" }, new { @id = "DeleteButton" })
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript">
+            </thead>
+        </table>
+    <a class="popup btn btn-primary" href="/students/create/0" style="margin-bottom:20px; margin-top:20px;">Add New Student</a>
+    </div>
+
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+
+    <script>
         $(document).ready(function () {
-            var table = $('#students_table').DataTable({
-                "scrollY": '50vh',
+            var oTable = $('#students_table').DataTable({
+                scrollY: '50vh',
                 scrollCollapse: true,
-                paging: false
+                paging: false,
+                "ajax": {
+                    "url" : '/students/GetStudents',
+                    "type" : "get",
+                    "datatype" : "json"
+                },
+                "columns": [
+                    { "data": "Name", "autoWidth": true },
+                    { "data" : "Surname", "autoWidth" : true},
+                    { "data": "Patronymic", "autoWidth": true },
+                    { "data": "PhoneNumber", "autoWidth": true },
+                    {
+                        "data": "StudentId", "width": "100px", "render": function (data) {
+                            return '<a class="popup" href="/students/delete/' + data + '">Delete</a> | <a class="popup" href="/students/edit/' + data + '">Details</a>';
+                        }
+                    }
+                ]
+                
+            })
+            $('.tablecontainer').on('click', 'a.popup', function (e) {
+                e.preventDefault();
+                OpenPopup($(this).attr('href'));
+            })
+            function OpenPopup(pageUrl) {
+                var $pageContent = $('<div/>');
+                $pageContent.load(pageUrl, function () {
+                    $('#popupForm', $pageContent).removeData('validator');
+                    $('#popupForm', $pageContent).removeData('unobtrusiveValidation');
+                    $.validator.unobtrusive.parse('form');
 
-            });
-            $('#students_table tbody').on('click', 'tr', function () {
-                if ($(this).hasClass('selected')) {
-                    $(this).removeClass('selected');
-                }
-                else {
-                    table.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected')
-                }
-            });
-            $('#DeleteButton').click(function () {
-                var studentId = table.row('.selected')[0]; //this give me correct id
-                //alert(studentId); 
-                if (studentId) {
-                    $.get("?id=" + studentId, function () {
-                        table.row('.selected').remove().draw(false);
-                    });
-                }
-            });
-            /*$('#btnDelete').click(function () {
-                var studentId = table.row('.selected')[0];
-                //alert(studentId);
-                if (studentId) {
-                    var href = "?id=" + studentId;
-                    $("#DeleteButton").attr(href).click();
-                    //$('#DeleteButton').attr("?id=" + encodeURIComponent(studentId)).click();
-                }
-                table.row('.selected').remove().draw(false);
-            });*/
+                });
 
-        });
+                $dialog = $('<div class="popupWindow" style="overflow:auto"></div>')
+                          .html($pageContent)
+                          .dialog({
+                              draggable : false,
+                              autoOpen : false,
+                              resizable : false,
+                              model : true,
+                              title:'Popup Dialog',
+                              height : 550,
+                              width : 600,
+                              close: function () {
+                                  $dialog.dialog('destroy').remove();
+                              }
+                          })
+
+                $('.popupWindow').on('submit', '#popupForm', function (e) {
+                    var url = $('#popupForm')[0].action;
+                    $.ajax({
+                        type : "POST",
+                        url : url,
+                        data: $('#popupForm').serialize(),
+                        success: function (data) {
+                            if (data.status) {
+                                $dialog.dialog('close');
+                                oTable.ajax.reload();
+                            }
+                        }
+                    })
+
+                    e.preventDefault();
+                })
+
+                $dialog.dialog('open');
+            }
+        })
     </script>
-
-
-
-
-
-
-
-<!--
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Surname)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Surname)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.StudentId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.StudentId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.StudentId })
-        </td>
-    </tr>
-}
-
-</table>
--->
