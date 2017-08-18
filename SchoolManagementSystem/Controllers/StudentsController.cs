@@ -85,12 +85,19 @@ namespace SchoolManagementSystem.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "StudentId,Name,Surname")] Student student)
+        public async Task<ActionResult> Edit([Bind(Include = "StudentId,Name,Surname,Patronymic,DateOfBirth,Email,Activity,Sex,PhoneNumber")] Student student)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(student).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+				try
+				{
+					await db.SaveChangesAsync();
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message.ToString());
+				}
                 return RedirectToAction("Index");
             }
             return View(student);

@@ -12,7 +12,8 @@ namespace SchoolManagementSystem.Models
 		public string Surname { get; set;}
 		public string Patronymic { get; set; }
 		[Display(Name = "Date of birth")]
-		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM.dd.yyyy}", NullDisplayText = "Is not filled")]
+		[DataType(DataType.Date)]
+		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd'/'MM'/'yyyy}", NullDisplayText = "Is not filled")]
 		public DateTime DateOfBirth { get; set; }
 		[Display(Name = "Phone number")]
 		public string PhoneNumber { get; set; }

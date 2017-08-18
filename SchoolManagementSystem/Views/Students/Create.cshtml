@@ -3,7 +3,7 @@
 @{
     Layout = null;
 }
-@using (Html.BeginForm("create", "students", FormMethod.Post, new { id = "popupForm" }))
+@using (Html.BeginForm("Create", "Students", FormMethod.Post, new { id = "popupForm" }))
 {
     @Html.AntiForgeryToken()
     if (Model != null && Model.StudentId > 0)
