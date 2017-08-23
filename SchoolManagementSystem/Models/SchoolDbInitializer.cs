@@ -10,7 +10,7 @@ namespace SchoolManagementSystem.Models
 	{
 		protected override void Seed(SchoolContext context)
 		{
-			context.Students.Add(new Student { Name = "Ivan", Surname = "Ivanov" });
+			//context.Students.Add(new Student { Name = "Ivan", Surname = "Ivanov" });
 			base.Seed(context);
 		}
 	}

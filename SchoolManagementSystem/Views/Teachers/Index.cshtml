@@ -1,56 +1,56 @@
-﻿@model IEnumerable<SchoolManagementSystem.Models.Student>
+﻿@model IEnumerable<SchoolManagementSystem.Models.Teacher>
+
 
 @{
-    ViewBag.Title = "List of student";
+    ViewBag.Title = "List of teacher";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
 
 <div style="width:90%; margin:0 auto" class="tablecontainer">
-        <table id="students_table" class="table table-striped table-bordered" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Patronymic</th>
-                    <th>Phone</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-        </table>
-    <a class="popup btn btn-primary" href="/students/create/0" style="margin-bottom:20px; margin-top:20px;">Add New Student</a>
-    </div>
+    <table id="teachers_table" class="table table-striped table-bordered" cellspacing="0">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <!--<th>Email</th>-->
+                <th>Phone</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+    </table>
+</div>
 
-    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-    <script src="~/Scripts/jquery-ui.min.js"></script>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/jquery-ui.min.js"></script>
 
-    <script>
+<script>
         $(document).ready(function () {
-            var oTable = $('#students_table').DataTable({
+            var oTable = $('#teachers_table').DataTable({
                 scrollY: '50vh',
                 scrollCollapse: true,
                 paging: false,
                 "ajax": {
-                    "url" : '/students/GetStudents',
+                    "url" : '/teachers/GetTeachers',
                     "type" : "get",
                     "datatype" : "json"
                 },
                 "columns": [
                     { "data": "Name", "autoWidth": true },
                     { "data" : "Surname", "autoWidth" : true},
-                    { "data": "Patronymic", "autoWidth": true },
+                    //{ "data": "ApplicationUser.Email", "autoWidth": true },
                     { "data": "PhoneNumber", "autoWidth": true },
                     {
-                        "data": "StudentId", "width": "100px", "render": function (data) {
-                            return '<a class="popup" href="/students/delete/' + data + '">Delete</a> | <a class="popup" href="/students/edit/' + data + '">Details</a>';
+                        "data": "Id", "width": "100px", "render": function (data) {
+                            return '<a class="popup" href="/teachers/delete/' + data + '">Delete</a> | <a class="popup" href="/teachers/edit/' + data + '">Details</a>';
                         }
                     }
                 ]
-                
+
             })
             $('.tablecontainer').on('click', 'a.popup', function (e) {
                 e.preventDefault();
@@ -100,4 +100,6 @@
                 $dialog.dialog('open');
             }
         })
-    </script>
+</script>
+
+
