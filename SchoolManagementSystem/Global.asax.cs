@@ -14,7 +14,7 @@ namespace SchoolManagementSystem
 	{
 		protected void Application_Start()
 		{
-			//Database.SetInitializer(new SchoolDbInitializer());
+			Database.SetInitializer(new SchoolDbInitializer());
 
 			AreaRegistration.RegisterAllAreas();
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

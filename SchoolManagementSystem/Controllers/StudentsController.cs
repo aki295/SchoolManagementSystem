@@ -77,7 +77,7 @@ namespace SchoolManagementSystem.Controllers
             {
                 return HttpNotFound();
             }
-			ViewBag.Courses = new SelectList(db.Courses, "CourseId", "Name");
+			ViewBag.Courses = db.Courses.FirstOrDefault();
             return View(student);
         }
 

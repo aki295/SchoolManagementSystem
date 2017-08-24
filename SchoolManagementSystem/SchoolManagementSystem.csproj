@@ -197,6 +197,10 @@
     <Compile Include="Migrations\201708110518268_m2.Designer.cs">
       <DependentUpon>201708110518268_m2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708240948598_m3.cs" />
+    <Compile Include="Migrations\201708240948598_m3.Designer.cs">
+      <DependentUpon>201708240948598_m3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ApplicationUserManager.cs" />
@@ -516,6 +520,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Students1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -529,6 +534,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708110518268_m2.resx">
       <DependentUpon>201708110518268_m2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708240948598_m3.resx">
+      <DependentUpon>201708240948598_m3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
