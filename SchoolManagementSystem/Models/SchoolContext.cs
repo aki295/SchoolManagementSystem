@@ -15,5 +15,13 @@ namespace SchoolManagementSystem.Models
 		public DbSet<Lesson> Lessons { get; set; }
 		public DbSet<Course> Courses { get; set; }
 		public static SchoolContext Create() => new SchoolContext();
+		/*protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<Course>().HasMany(c => c.Students)
+				.WithMany(s => s.Courses)
+				.Map(t => t.MapLeftKey("CourseId")
+				.MapRightKey("StusentId")
+				.ToTable("CourseStudent"));
+		}*/
 	}
 }
