@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SchoolManagementSystem.Models;
+using SchoolManagementSystem.ViewModels;
 
 namespace SchoolManagementSystem.Controllers
 {
@@ -72,13 +73,16 @@ namespace SchoolManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = await db.Students.FindAsync(id);
-            if (student == null)
+			//Student student = await db.Students.FindAsync(id);
+			var studentViewModel = new StudentViewModel { Student = await db.Students.Include(i => i.Courses).FirstAsync(i => i.StudentId == id) };
+            if (studentViewModel == null)
             {
                 return HttpNotFound();
             }
-			ViewBag.Courses = db.Courses.FirstOrDefault();
-            return View(student);
+			var allCoursesList = await db.Courses.ToListAsync();
+			studentViewModel.AllCourses = allCoursesList.Select(o => new SelectListItem { Text = o.Name, Value = o.CourseId.ToString() });
+			//ViewBag.Courses = db.Students.FirstOrDefault().Courses.ToList();
+            return View(studentViewModel);
         }
 
         // POST: Students/Edit/5
