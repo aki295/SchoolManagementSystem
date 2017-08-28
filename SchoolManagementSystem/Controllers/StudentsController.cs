@@ -79,9 +79,8 @@ namespace SchoolManagementSystem.Controllers
             {
                 return HttpNotFound();
             }
-			var allCoursesList = await db.Courses.ToListAsync();
-			studentViewModel.AllCourses = allCoursesList.Select(o => new SelectListItem { Text = o.Name, Value = o.CourseId.ToString() });
-			//ViewBag.Courses = db.Students.FirstOrDefault().Courses.ToList();
+			var allCoursesList = await db.Courses.Where(c => studentViewModel.SelectedCourses.Contains(c.CourseId)).ToListAsync();
+			studentViewModel.AllCourses = allCoursesList.Select(co => new SelectListItem { Text = co.Name, Value = co.CourseId.ToString() });
             return View(studentViewModel);
         }
 

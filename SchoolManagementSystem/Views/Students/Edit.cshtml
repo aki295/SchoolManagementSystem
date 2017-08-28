@@ -92,7 +92,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.AllCourses, "Courses", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-5">
-                    @Html.ListBoxFor(model => model.SelectedCourses, Model.AllCourses)
+                    @Html.DropDownListFor(model => model.SelectedCourses, Model.AllCourses, new { multiple = "true" })
                 </div>
             </div>
 
