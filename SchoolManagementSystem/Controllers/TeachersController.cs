@@ -81,8 +81,8 @@ namespace SchoolManagementSystem.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Id = new SelectList(db.Users, "Id", "Email", teacher.Id);
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "Name", teacher.CourseId);
+            //ViewBag.Id = new SelectList(db.Users, "Id", "Email", teacher.Id);
+            ViewBag.Courses = new SelectList(db.Courses, "CourseId", "Name", teacher.CourseId);
             return View(teacher);
         }
 

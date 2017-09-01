@@ -91,17 +91,47 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.AllCourses, "Courses", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-5">
-                    @Html.DropDownListFor(model => model.SelectedCourses, Model.AllCourses, new { multiple = "true" })
+                <div>
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(model => model.SelectedCourses, Model.AllCourses, new { multiple = "true", id = "listCourse" })
+                        <input type="button" id="btnDeleteCourse" value="Remove course" />
+                    </div>
+                    <div class="col-md-5">
+                        @Html.ListBox("Courses", null, htmlAttributes: new { id = "listAllCourses" })
+                        <input type="button" id="btnAddCourse" value="Add new course" />
+                    </div>
                 </div>
+                
             </div>
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
+                    <input type="submit" id="btnSaveIditStudent" value="Save" class="btn btn-default" />
                 </div>
             </div>
         </div>
     }
+
+    <<script type="text/javascript">
+        $(function () {
+            $('#btnDeleteCourse').click(function () {
+                $('#listCourse > option:selected').each(function () {
+                    $(this).remove().appendTo('#listAllCourses');
+                });
+            });
+        });
+        $(function () {
+            $('#btnSaveIditStudent').click(function () {
+                $('#listCourse option').prop("selected", true);
+            });
+        });
+        $(function () {
+            $('#btnAddCourse').click(function () {
+                $('#listAllCourses > option:selected').each(function () {
+                    $(this).remove().appendTo('#listCourse');
+                });
+            });
+        });
+</script>
 </body>
 </html>

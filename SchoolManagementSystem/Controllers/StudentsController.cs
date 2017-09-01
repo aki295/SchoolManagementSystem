@@ -45,26 +45,33 @@ namespace SchoolManagementSystem.Controllers
         // GET: Students/Create
         public ActionResult Create()
         {
-            return View();
+			ViewBag.Courses = new SelectList(db.Courses.OrderBy(c => c.Name), "CourseId", "Name");
+			return View();
         }
 
         // POST: Students/Create
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "StudentId,Name,Surname,Patronymic,DateOfBirth,Email,Activity,Sex,PhoneNumber")] Student student)
+        [ValidateAntiForgeryToken]//[Bind(Include = "StudentId,Name,Surname,Patronymic,DateOfBirth,Email,Activity,Sex,PhoneNumber")]
+		public async Task<ActionResult> Create(StudentViewModel studentView)
         {
-			
-            if (ModelState.IsValid)
-            {
-                db.Students.Add(student);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-
-            return View(student);
-        }
+			if (studentView == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			if (ModelState.IsValid)
+			{
+				var student = studentView.Student;
+				var newCourses = db.Courses.Where(c => studentView.SelectedCourses.Contains(c.CourseId)).ToList();
+				var updatedCourses = new HashSet<int>(studentView.SelectedCourses);
+				foreach (Course course in db.Courses)
+				{
+					student.Courses.Add(course);
+				}
+				db.Students.Add(student);
+				await db.SaveChangesAsync();
+				return RedirectToAction("Index");
+			}
+			return View(studentView);
+		}
 
         // GET: Students/Edit/5
         public async Task<ActionResult> Edit(int? id)
@@ -73,39 +80,50 @@ namespace SchoolManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-			//Student student = await db.Students.FindAsync(id);
 			var studentViewModel = new StudentViewModel { Student = await db.Students.Include(i => i.Courses).FirstAsync(i => i.StudentId == id) };
             if (studentViewModel == null)
             {
                 return HttpNotFound();
             }
-			var allCoursesList = await db.Courses.Where(c => studentViewModel.SelectedCourses.Contains(c.CourseId)).ToListAsync();
-			studentViewModel.AllCourses = allCoursesList.Select(co => new SelectListItem { Text = co.Name, Value = co.CourseId.ToString() });
-            return View(studentViewModel);
+			var allChosenCoursesList = await db.Courses.Where(c => studentViewModel.SelectedCourses.Contains(c.CourseId)).OrderBy(c => c.Name).ToListAsync();
+			studentViewModel.AllCourses = allChosenCoursesList.Select(co => new SelectListItem { Text = co.Name, Value = co.CourseId.ToString() });
+			ViewBag.Courses = new SelectList(db.Courses.Where(c => !studentViewModel.SelectedCourses.Contains(c.CourseId)).OrderBy(c => c.Name), "CourseId", "Name");
+			return View(studentViewModel);
         }
 
         // POST: Students/Edit/5
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "StudentId,Name,Surname,Patronymic,DateOfBirth,Email,Activity,Sex,PhoneNumber")] Student student)
+        [ValidateAntiForgeryToken] //[Bind(Include = "StudentId,Name,Surname,Patronymic,DateOfBirth,Email,Activity,Sex,PhoneNumber")]
+		public async Task<ActionResult> Edit(StudentViewModel studentView)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(student).State = EntityState.Modified;
-				try
+			if (studentView == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			if (ModelState.IsValid)
+			{
+				var studentToUpdate = await db.Students.Include(s => s.Courses).FirstAsync(s => s.StudentId == studentView.Student.StudentId);
+				if (TryUpdateModel(studentToUpdate, "Student", new string[] { "Name", "Surname", "Patronymic", "DateOfBirth", "Email", "Activity", "Sex", "PhoneNumber" }))
 				{
+					var newCourses = db.Courses.Where(c => studentView.SelectedCourses.Contains(c.CourseId)).ToList();
+					var updatedCourses = new HashSet<int>(studentView.SelectedCourses);
+					foreach (Course course in db.Courses)
+					{
+						if (!updatedCourses.Contains(course.CourseId))
+						{
+							studentToUpdate.Courses.Remove(course);
+						}
+						else
+						{
+							studentToUpdate.Courses.Add(course);
+						}
+					}
+					db.Entry(studentToUpdate).State = EntityState.Modified;
 					await db.SaveChangesAsync();
 				}
-				catch (Exception ex)
-				{
-					Console.WriteLine(ex.Message.ToString());
-				}
-                return RedirectToAction("Index");
-            }
-            return View(student);
-        }
+				return RedirectToAction("Index");
+			}
+			return View(studentView);
+		}
 
         // GET: Students/Delete/5
         public async Task<ActionResult> Delete(int? id)

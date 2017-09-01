@@ -26,10 +26,6 @@ namespace SchoolManagementSystem.Controllers
         {
             return View();
         }
-		public ActionResult TEST()
-		{
-			return View();
-		}
 		[HttpPost]
 		public async Task<ActionResult> Register(RegisterModel model)
 		{
