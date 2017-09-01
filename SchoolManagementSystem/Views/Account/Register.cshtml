@@ -17,10 +17,11 @@
         <!--<link href="~/Content/bootstrap.min.css" rel="stylesheet">-->
         <!-- Custom styles for this template -->
         <link href="~/Content/registration.css" rel="stylesheet">
+
     </head>
     <body>
         <div class="form-group">
-            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-login", role = "form" }))
+            @using (Ajax.BeginForm(new AjaxOptions { }))
             {
                 @Html.AntiForgeryToken()
                 <h2 class="form-register-heading">Registration</h2>
