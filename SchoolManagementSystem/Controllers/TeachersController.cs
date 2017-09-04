@@ -18,7 +18,7 @@ namespace SchoolManagementSystem.Controllers
         // GET: Teachers
         public async Task<ActionResult> Index()
         {
-            var teachers = db.Teachers.Include(t => t.ApplicationUser).Include(t => t.Course);
+            var teachers = db.Teachers.Include(t => t.ApplicationUser).Include(t => t.Courses);
             return View(await teachers.ToListAsync());
         }
 
@@ -65,7 +65,7 @@ namespace SchoolManagementSystem.Controllers
             }
 
             ViewBag.Id = new SelectList(db.Users, "Id", "Email", teacher.Id);
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "Name", teacher.CourseId);
+            //ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "Name", teacher.CourseId);
             return View(teacher);
         }
 
@@ -81,8 +81,9 @@ namespace SchoolManagementSystem.Controllers
             {
                 return HttpNotFound();
             }
-            //ViewBag.Id = new SelectList(db.Users, "Id", "Email", teacher.Id);
-            ViewBag.Courses = new SelectList(db.Courses, "CourseId", "Name", teacher.CourseId);
+			//ViewBag.Id = new SelectList(db.Users, "Id", "Email", teacher.Id);
+			teacher.Courses.Add(new Course());
+            ViewBag.Courses = new SelectList(teacher.Courses, "CourseId", "Name");
             return View(teacher);
         }
 
@@ -100,7 +101,7 @@ namespace SchoolManagementSystem.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Id = new SelectList(db.Users, "Id", "Email", teacher.Id);
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "Name", teacher.CourseId);
+            //ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "Name", teacher.CourseId);
             return View(teacher);
         }
 

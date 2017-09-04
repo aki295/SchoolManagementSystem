@@ -14,6 +14,7 @@ namespace SchoolManagementSystem.Models
 		public DbSet<Teacher> Teachers { get; set; }
 		public DbSet<Lesson> Lessons { get; set; }
 		public DbSet<Course> Courses { get; set; }
+		public DbSet<File> Files { get; set; }
 		public static SchoolContext Create() => new SchoolContext();
 		/*protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
