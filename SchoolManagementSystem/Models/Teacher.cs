@@ -20,8 +20,11 @@ namespace SchoolManagementSystem.Models
 		[Display(Name = "Hourly wage")]
 		public int SalaryPerHour { get; set; }
 		public int Salary { get; set; }
-		public Course Course { get; set; }
-		public int? CourseId { get; set; }
 		public ApplicationUser ApplicationUser { get; set; }
+		public ICollection<Course> Courses { get; set; }
+		public Teacher()
+		{
+			Courses = new List<Course>();
+		}
 	}
 }

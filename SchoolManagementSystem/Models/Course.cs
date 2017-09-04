@@ -13,11 +13,11 @@ namespace SchoolManagementSystem.Models
 		public LanguageProficiency LanguageProficiency { get; set; }
 		public DateTime StartDate { get; set; }
 		public DateTime EndDate { get; set; }
-		public ICollection<Teacher> Teachers { get; set; }
+		public int? TeacherId { get; set; }
+		public Teacher Teacher { get; set; }
 		public ICollection<Student> Students { get; set; }
 		public Course()
 		{
-			Teachers = new List<Teacher>();
 			Students = new List<Student>();
 		}
 	}
