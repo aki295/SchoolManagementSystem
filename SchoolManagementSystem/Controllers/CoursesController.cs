@@ -21,8 +21,18 @@ namespace SchoolManagementSystem.Controllers
             return View(await db.Courses.ToListAsync());
         }
 
-        // GET: Courses/Details/5
-        public async Task<ActionResult> Details(int? id)
+		public async Task<ActionResult> GetCourses()
+		{
+			var courses = await db.Courses.OrderBy(name => name.Name).Select(
+				co => new { co.CourseId, co.Name, co.Students, co.Teacher, co.TeacherId, co.Language, co.LanguageProficiency, co.StartDate, co.EndDate })
+				.ToListAsync();
+			var courseForTable = courses.Select(co => new { co.CourseId, co.Name, co.Students, co.Teacher, co.TeacherId, Language = co.Language.ToString(),
+				LanguageProficiency = co.LanguageProficiency.ToString(), StartDate = co.StartDate.ToShortDateString(), EndDate = co.EndDate.ToShortDateString() });
+			return Json(new { data = courseForTable }, JsonRequestBehavior.AllowGet);
+		}
+
+		// GET: Courses/Details/5
+		public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {

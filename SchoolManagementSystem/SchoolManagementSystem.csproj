@@ -209,6 +209,10 @@
     <Compile Include="Migrations\201709040821232_m5.Designer.cs">
       <DependentUpon>201709040821232_m5.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709050740043_m6.cs" />
+    <Compile Include="Migrations\201709050740043_m6.Designer.cs">
+      <DependentUpon>201709050740043_m6.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ApplicationUserManager.cs" />
@@ -523,12 +527,10 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Teachers\Create.cshtml" />
     <Content Include="Views\Teachers\Delete.cshtml" />
-    <Content Include="Views\Teachers\Details.cshtml" />
     <Content Include="Views\Teachers\Edit.cshtml" />
     <Content Include="Views\Teachers\Index.cshtml" />
     <Content Include="Views\Courses\Create.cshtml" />
     <Content Include="Views\Courses\Delete.cshtml" />
-    <Content Include="Views\Courses\Details.cshtml" />
     <Content Include="Views\Courses\Edit.cshtml" />
     <Content Include="Views\Courses\Index.cshtml" />
   </ItemGroup>
@@ -556,6 +558,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709040821232_m5.resx">
       <DependentUpon>201709040821232_m5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709050740043_m6.resx">
+      <DependentUpon>201709050740043_m6.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

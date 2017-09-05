@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -10,8 +11,13 @@ namespace SchoolManagementSystem.Models
 		public int CourseId { get; set; }
 		public string Name { get; set; }
 		public Language Language { get; set; }
+		[Display(Name = "Language Proficiency")]
 		public LanguageProficiency LanguageProficiency { get; set; }
+		[Display(Name = "Start")]
+		[DataType(DataType.Date)]
 		public DateTime StartDate { get; set; }
+		[Display(Name = "End")]
+		[DataType(DataType.Date)]
 		public DateTime EndDate { get; set; }
 		public int? TeacherId { get; set; }
 		public Teacher Teacher { get; set; }
@@ -42,26 +48,4 @@ namespace SchoolManagementSystem.Models
 		C1_Advanced,
 		C2_Proficiency
 	}
-	/*public sealed class LanguageProficiency
-	{
-		private readonly string name;
-		private readonly int value;
-		private LanguageProficiency(int value, string name)
-		{
-			this.name = name;
-			this.value = value;
-		}
-		public override string ToString()
-		{
-			return name;
-		}
-		public static readonly LanguageProficiency A1_Begginer = new LanguageProficiency(1, "A1 - Begginer");
-		public static readonly LanguageProficiency A1_Elementary = new LanguageProficiency(2, "A1 - Elementary");
-		public static readonly LanguageProficiency A2_PreIntermediate = new LanguageProficiency(3, "A1 - Pre-Intermediate");
-		public static readonly LanguageProficiency B1_Intermediate = new LanguageProficiency(4, "B1 - Intermediate");
-		public static readonly LanguageProficiency B1_IntermediatePlus = new LanguageProficiency(5, "B1 - Intermediate+");
-		public static readonly LanguageProficiency B2_UpperIntermediate = new LanguageProficiency(6, "B2 - Upper-Intermediate");
-		public static readonly LanguageProficiency C1_Advanced = new LanguageProficiency(7, "C1 - Advanced");
-		public static readonly LanguageProficiency C2_Proficiency = new LanguageProficiency(8, "C2 - Proficiency");
-	}*/
 }
