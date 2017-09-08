@@ -217,6 +217,14 @@
     <Compile Include="Migrations\201709060825074_m7.Designer.cs">
       <DependentUpon>201709060825074_m7.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709070340542_m8.cs" />
+    <Compile Include="Migrations\201709070340542_m8.Designer.cs">
+      <DependentUpon>201709070340542_m8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709080341491_m81.cs" />
+    <Compile Include="Migrations\201709080341491_m81.Designer.cs">
+      <DependentUpon>201709080341491_m81.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ApplicationUserManager.cs" />
@@ -229,6 +237,7 @@
     <Compile Include="Models\SchoolContext.cs" />
     <Compile Include="Models\SchoolDbInitializer.cs" />
     <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\StudyRoom.cs" />
     <Compile Include="Models\Teacher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\StudentViewModel.cs" />
@@ -568,6 +577,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709060825074_m7.resx">
       <DependentUpon>201709060825074_m7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709070340542_m8.resx">
+      <DependentUpon>201709070340542_m8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709080341491_m81.resx">
+      <DependentUpon>201709080341491_m81.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

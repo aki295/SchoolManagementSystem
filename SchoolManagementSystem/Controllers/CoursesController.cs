@@ -58,6 +58,7 @@ namespace SchoolManagementSystem.Controllers
 		// GET: Courses/Create
 		public ActionResult Create()
 		{
+			ViewBag.Teachers = new SelectList(db.Teachers, "Id", "Surname");
 			return View();
 		}
 
@@ -89,7 +90,7 @@ namespace SchoolManagementSystem.Controllers
 			var allTeachers = new List<Teacher> { course.Teacher };
 			var teachersExceptThis = await db.Teachers.OrderBy(t => t.Surname).Except(allTeachers).ToListAsync();
 			var unionTeachers  = allTeachers.Concat(teachersExceptThis).ToList();
-			ViewBag.Teachers = new SelectList(unionTeachers, "Id", "Surname");
+			ViewBag.Teachers = new SelectList(unionTeachers, "Id", "Surname", course.TeacherId);
 			if (course == null)
 			{
 				return HttpNotFound();
@@ -102,7 +103,7 @@ namespace SchoolManagementSystem.Controllers
 		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> Edit([Bind(Include = "CourseId,Name,Language,LanguageProficiency,StartDate,EndDate,Teachers")] Course course)
+		public async Task<ActionResult> Edit([Bind(Include = "CourseId,Name,Language,LanguageProficiency,StartDate,EndDate,TeacherId")] Course course)
 		{
 			if (ModelState.IsValid)
 			{

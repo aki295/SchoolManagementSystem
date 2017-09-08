@@ -19,12 +19,15 @@ namespace SchoolManagementSystem.Models
 		[Display(Name = "End")]
 		[DataType(DataType.Date)]
 		public DateTime EndDate { get; set; }
-		public int? TeacherId { get; set; }
+		public int NumberOfLessonsPerWeek { get; set; }
+		public string TeacherId { get; set; }
 		public Teacher Teacher { get; set; }
 		public ICollection<Student> Students { get; set; }
+		public ICollection<Lesson> Lessons { get; set; }
 		public Course()
 		{
 			Students = new List<Student>();
+			Lessons = new List<Lesson>();
 		}
 	}
 	public enum Language
