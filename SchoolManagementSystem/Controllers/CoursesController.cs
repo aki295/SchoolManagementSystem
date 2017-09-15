@@ -67,7 +67,7 @@ namespace SchoolManagementSystem.Controllers
 		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> Create([Bind(Include = "CourseId,Name,Language,LanguageProficiency,StartDate,EndDate,TeacherId")] Course course)
+		public async Task<ActionResult> Create([Bind(Include = "CourseId,Name,Language,LanguageProficiency,StartDate,EndDate,TeacherId,NumberOfLessonsPerWeek")] Course course)
 		{
 			if (ModelState.IsValid)
 			{
@@ -75,8 +75,18 @@ namespace SchoolManagementSystem.Controllers
 				await db.SaveChangesAsync();
 				return RedirectToAction("Index");
 			}
-
 			return View(course);
+		}
+
+		public async void CreateLesson()
+		{
+
+		}
+
+		public ActionResult ShowDaysOfweek()
+		{
+			ViewBag.DaysOfWeek =  new List<DayOfWeek> { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday };
+			return PartialView();
 		}
 
 		// GET: Courses/Edit/5

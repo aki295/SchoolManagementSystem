@@ -19,6 +19,7 @@ namespace SchoolManagementSystem.Models
 		[Display(Name = "End")]
 		[DataType(DataType.Date)]
 		public DateTime EndDate { get; set; }
+		[Display(Name = "Number Of Lessons Per Week")]
 		public int NumberOfLessonsPerWeek { get; set; }
 		public string TeacherId { get; set; }
 		public Teacher Teacher { get; set; }
