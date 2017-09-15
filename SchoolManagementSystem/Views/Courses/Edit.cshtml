@@ -7,10 +7,7 @@
 
 <h2>Edit</h2>
 
-@using (Ajax.BeginForm(new AjaxOptions { }))
-{
-    @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Course</h4>
         <hr />
@@ -64,11 +61,14 @@
                 @Html.ValidationMessageFor(model => model.TeacherId, "", new { @class = "text-danger" })
             </div>
         </div>
+@using (Ajax.BeginForm(new AjaxOptions { }))
+{
+    @Html.AntiForgeryToken()
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
-    </div>
 }
+    </div>
