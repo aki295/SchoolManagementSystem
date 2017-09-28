@@ -9,7 +9,10 @@ namespace SchoolManagementSystem.Models
 {
 	public class SchoolContext : IdentityDbContext<ApplicationUser>
 	{
-		public SchoolContext() : base("SchoolContext") { }
+		public SchoolContext() : base("SchoolContext")
+		{
+			AppDomain.CurrentDomain.SetData("DataDirectory", Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData));
+		}
 		public DbSet<Student> Students { get; set; }
 		public DbSet<Teacher> Teachers { get; set; }
 		public DbSet<Lesson> Lessons { get; set; }

@@ -3,24 +3,27 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace SchoolManagementSystem.Models
 {
 	public class Course
 	{
+		[Key]
+		[HiddenInput(DisplayValue = false)]
 		public int CourseId { get; set; }
 		public string Name { get; set; }
 		public Language Language { get; set; }
 		[Display(Name = "Language Proficiency")]
 		public LanguageProficiency LanguageProficiency { get; set; }
-		[Display(Name = "Start")]
+		[Display(Name = "Start date")]
 		[DataType(DataType.Date)]
 		public DateTime StartDate { get; set; }
-		[Display(Name = "End")]
+		[Display(Name = "End date")]
 		[DataType(DataType.Date)]
 		public DateTime EndDate { get; set; }
-		[Display(Name = "Number Of Lessons Per Week")]
-		public int NumberOfLessonsPerWeek { get; set; }
+		//[Display(Name = "Number Of Lessons Per Week")]
+		//public int NumberOfLessonsPerWeek { get; set; }
 		public string TeacherId { get; set; }
 		public Teacher Teacher { get; set; }
 		public ICollection<Student> Students { get; set; }

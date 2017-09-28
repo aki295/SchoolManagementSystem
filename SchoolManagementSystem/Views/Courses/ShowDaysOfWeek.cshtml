@@ -1,1 +1,21 @@
-﻿
+﻿@for (var i = 1; i < ViewBag.CountDays + 1; i++)
+{
+    <div class="form-group">
+        @Html.Label("Day of week " + i, htmlAttributes: new { @class = "control-label col-md-3" })
+        <div class="col-md-5">
+            @Html.DropDownList("DaysOfWeek", (IEnumerable<SelectListItem>)ViewBag.DaysOfWeek, htmlAttributes: new { @class = "form-control", style = "height: 35px", @id = "daysOfWeek" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Start time", htmlAttributes: new { @class = "control-label col-md-3" })
+        <div class="col-md-5">
+            @Html.TextBox("StartTime", null, htmlAttributes: new { @class = "form-control", @type = "time", @id = "startTime" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("End time", htmlAttributes: new { @class = "control-label col-md-3" })
+        <div class="col-md-5">
+            @Html.TextBox("EndTime", null, htmlAttributes: new { @class = "form-control", @type = "time", @id = "endTime" })
+        </div>
+    </div>
+}

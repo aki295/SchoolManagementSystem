@@ -8,13 +8,14 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SchoolManagementSystem.Models;
+using System.Globalization;
 
 namespace SchoolManagementSystem.Controllers
 {
 	public class CoursesController : Controller
 	{
 		private SchoolContext db = new SchoolContext();
-
+		
 		// GET: Courses
 		public async Task<ActionResult> Index()
 		{
@@ -67,26 +68,36 @@ namespace SchoolManagementSystem.Controllers
 		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> Create([Bind(Include = "CourseId,Name,Language,LanguageProficiency,StartDate,EndDate,TeacherId,NumberOfLessonsPerWeek")] Course course)
+		public async Task<ActionResult> Create([Bind(Include = "CourseId,Name,Language,LanguageProficiency,StartDate,EndDate,TeacherId,NumberOfLessonsPerWeek")] Course course,
+			FormCollection form)
 		{
 			if (ModelState.IsValid)
 			{
 				db.Courses.Add(course);
 				await db.SaveChangesAsync();
+				var days = form["daysOfWeek"].ToString().Split(',').ToList();
+				var startTimes = form["startTime"].ToString().Split(',').ToList();
+				var endTimes = form["endTime"].ToString().Split(',').ToList();
+				CreateLessons(days, startTimes, endTimes);
 				return RedirectToAction("Index");
 			}
 			return View(course);
 		}
 
-		public async void CreateLesson()
+		public async void CreateLessons(List<string> days, List<string> startTimes, List<string> endTimes)
 		{
-
+			
+			var x = await db.Courses.ToListAsync();
+			db.Courses.OrderBy(b => b.CourseId);
+			var y = await db.Courses.ToListAsync();
 		}
 
-		public ActionResult ShowDaysOfweek()
+		public ActionResult ShowDaysOfweek(int? countDays)
 		{
-			ViewBag.DaysOfWeek =  new List<DayOfWeek> { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday };
-			return PartialView();
+			ViewBag.CountDays = countDays;
+			var days =  new List<DayOfWeek> { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday };
+			ViewBag.DaysOfWeek = new SelectList(days);
+			return PartialView("ShowDaysOfweek");
 		}
 
 		// GET: Courses/Edit/5
